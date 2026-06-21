@@ -719,6 +719,7 @@ class CompiledApp {
       _3535: () => globalThis.window,
       _3862: x0 => x0.localStorage,
       _4195: x0 => x0.length,
+      _13066: (x0,x1) => globalThis.window.open(x0,x1),
 
     };
 
