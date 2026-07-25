@@ -451,9 +451,12 @@ class CompiledApp {
       _1470: (ms, c) =>
       setTimeout(() => dartInstance.exports.$invokeCallback(c),ms),
       _1471: (handle) => clearTimeout(handle),
+      _1472: (ms, c) =>
+      setInterval(() => dartInstance.exports.$invokeCallback(c), ms),
       _1473: (handle) => clearInterval(handle),
       _1474: (c) =>
       queueMicrotask(() => dartInstance.exports.$invokeCallback(c)),
+      _1475: () => Date.now(),
       _1476: () => new Error().stack,
       _1477: (exn) => {
         let stackString = exn.toString();
@@ -507,6 +510,7 @@ class CompiledApp {
             constructor, [null, ...args]);
         return new factoryFunction();
       },
+      _1505: (o, p) => p in o,
       _1506: (o, p) => o[p],
       _1507: (o, p, v) => o[p] = v,
       _1508: (o, m, a) => o[m].apply(o, a),
@@ -609,6 +613,7 @@ class CompiledApp {
         return s;
       },
       _1533: x0 => x0.index,
+      _1534: x0 => x0.groups,
       _1535: x0 => x0.flags,
       _1536: x0 => x0.multiline,
       _1537: x0 => x0.ignoreCase,
