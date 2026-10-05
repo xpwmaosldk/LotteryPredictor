@@ -1,12 +1,19 @@
 {
-    "name": "cldloto",
-    "short_name": "cldloto",
-    "start_url": ".",
+    "name": "동행복권 로또 6/45 3D 물리 시뮬레이터 (Venus 3D)",
+    "short_name": "로또 3D (Venus)",
+    "start_url": "./",
+    "scope": "./",
+    "id": "./",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
-    "orientation": "portrait-primary",
+    "background_color": "#100C09",
+    "theme_color": "#E5B05C",
+    "description": "정밀 3D 물리 엔진과 나선형 회오리 제트(Rankine Vortex) 대류 시뮬레이션을 탑재한 대한민국 공인 로또 6/45 추첨기(Editec Venus) 실시간 디지털 트윈 & 통계 무결성 엔진",
+    "orientation": "any",
+    "categories": [
+        "entertainment",
+        "utilities",
+        "games"
+    ],
     "prefer_related_applications": false,
     "icons": [
         {

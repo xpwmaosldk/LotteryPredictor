@@ -18,10 +18,13 @@
   <meta property="og:image" content="icons/Icon-192.png">
   <meta property="og:type" content="website">
 
-  <!-- iOS meta tags & icons -->
+  <!-- PWA & Mobile Web App Meta Tags -->
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="동행복권 로또 6/45 3D 물리 시뮬레이터">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="로또 3D (Venus)">
+  <meta name="theme-color" content="#E5B05C">
+  <meta name="msapplication-TileColor" content="#100C09">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
@@ -302,6 +305,51 @@
         }, 200);
       });
     })();
+  </script>
+
+  <script>
+    // ── PWA Installation & Service Worker Integration ──
+    window.deferredPwaPrompt = null;
+    window.isPwaInstallAvailable = function () {
+      return window.deferredPwaPrompt !== null;
+    };
+    window.isPwaInstalled = function () {
+      return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    };
+
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault();
+      window.deferredPwaPrompt = e;
+      window.dispatchEvent(new CustomEvent('pwa-install-available'));
+      console.log('CLDLotto: PWA install prompt is ready.');
+    });
+
+    window.addEventListener('appinstalled', function () {
+      window.deferredPwaPrompt = null;
+      window.dispatchEvent(new CustomEvent('pwa-installed'));
+      console.log('CLDLotto: App was installed successfully as PWA!');
+    });
+
+    window.promptPwaInstall = async function () {
+      if (window.deferredPwaPrompt) {
+        window.deferredPwaPrompt.prompt();
+        var choiceResult = await window.deferredPwaPrompt.userChoice;
+        var accepted = choiceResult && choiceResult.outcome === 'accepted';
+        window.deferredPwaPrompt = null;
+        return accepted;
+      }
+      return false;
+    };
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('sw.js').then(function (reg) {
+          console.log('CLDLotto: ServiceWorker registered successfully with scope:', reg.scope);
+        }).catch(function (err) {
+          console.warn('CLDLotto: ServiceWorker registration failed:', err);
+        });
+      });
+    }
   </script>
 
   <script src="flutter_bootstrap.js" async></script>
