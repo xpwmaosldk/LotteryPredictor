@@ -8,7 +8,7 @@
     "background_color": "#100C09",
     "theme_color": "#E5B05C",
     "description": "정밀 3D 물리 엔진과 나선형 회오리 제트(Rankine Vortex) 대류 시뮬레이션을 탑재한 대한민국 공인 로또 6/45 추첨기(Editec Venus) 실시간 디지털 트윈 & 통계 무결성 엔진",
-    "orientation": "any",
+    "orientation": "portrait-primary",
     "categories": [
         "entertainment",
         "utilities",

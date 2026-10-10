@@ -317,6 +317,20 @@
       return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
     };
 
+    // ── Screen Orientation Lock (PWA Standalone & Mobile) ──
+    function lockPortraitOrientation() {
+      if (screen && screen.orientation && typeof screen.orientation.lock === 'function') {
+        screen.orientation.lock('portrait-primary').catch(function () {
+          if (typeof screen.orientation.lock === 'function') {
+            screen.orientation.lock('portrait').catch(function () {});
+          }
+        });
+      }
+    }
+    window.addEventListener('load', lockPortraitOrientation);
+    window.addEventListener('touchstart', lockPortraitOrientation, { once: true });
+    window.addEventListener('click', lockPortraitOrientation, { once: true });
+
     window.addEventListener('beforeinstallprompt', function (e) {
       e.preventDefault();
       window.deferredPwaPrompt = e;

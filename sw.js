@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cldlotto-pwa-v1';
+const CACHE_NAME = 'cldlotto-pwa-v2';
 const PRECACHE_ASSETS = [
   './',
   './index.html',
