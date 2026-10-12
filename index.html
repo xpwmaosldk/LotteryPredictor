@@ -309,12 +309,13 @@
 
   <script>
     // ── PWA Installation & Service Worker Integration ──
+    window._pwaInstalledFlag = false;
     window.deferredPwaPrompt = null;
     window.isPwaInstallAvailable = function () {
       return window.deferredPwaPrompt !== null;
     };
     window.isPwaInstalled = function () {
-      return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+      return window._pwaInstalledFlag === true || window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
     };
 
     // ── Screen Orientation Lock (PWA Standalone & Mobile) ──
@@ -339,6 +340,7 @@
     });
 
     window.addEventListener('appinstalled', function () {
+      window._pwaInstalledFlag = true;
       window.deferredPwaPrompt = null;
       window.dispatchEvent(new CustomEvent('pwa-installed'));
       console.log('CLDLotto: App was installed successfully as PWA!');
