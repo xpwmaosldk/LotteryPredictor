@@ -390,11 +390,11 @@ class CompiledApp {
       _1221: (module,f) => finalizeWrapper(f, function(x0,x1) { return module.exports._1221(f,arguments.length,x0,x1) }),
       _1222: x0 => new Promise(x0),
       _1223: x0 => x0.length,
-      _1285: (module,f) => finalizeWrapper(f, function(x0) { return module.exports._1285(f,arguments.length,x0) }),
-      _1286: (x0,x1) => globalThis.window.addEventListener(x0,x1),
-      _1287: () => globalThis.isPwaInstallAvailable(),
-      _1288: () => globalThis.isPwaInstalled(),
-      _1289: () => globalThis.promptPwaInstall(),
+      _1308: (module,f) => finalizeWrapper(f, function(x0) { return module.exports._1308(f,arguments.length,x0) }),
+      _1309: (x0,x1) => globalThis.window.addEventListener(x0,x1),
+      _1310: () => globalThis.isPwaInstallAvailable(),
+      _1311: () => globalThis.isPwaInstalled(),
+      _1312: () => globalThis.promptPwaInstall(),
       _1320: (x0,x1) => x0.getItem(x1),
       _1321: (x0,x1) => x0.removeItem(x1),
       _1322: (x0,x1,x2) => x0.setItem(x1,x2),
@@ -577,6 +577,18 @@ class CompiledApp {
       },
       _1537: (jsArray, jsArrayOffset, wasmArray, wasmArrayOffset, length) => {
         const setValue = dartInstance.exports.$wasmI8ArraySet;
+        for (let i = 0; i < length; i++) {
+          setValue(wasmArray, wasmArrayOffset + i, jsArray[jsArrayOffset + i]);
+        }
+      },
+      _1538: (jsArray, jsArrayOffset, wasmArray, wasmArrayOffset, length) => {
+        const getValue = dartInstance.exports.$wasmI16ArrayGet;
+        for (let i = 0; i < length; i++) {
+          jsArray[jsArrayOffset + i] = getValue(wasmArray, wasmArrayOffset + i);
+        }
+      },
+      _1539: (jsArray, jsArrayOffset, wasmArray, wasmArrayOffset, length) => {
+        const setValue = dartInstance.exports.$wasmI16ArraySet;
         for (let i = 0; i < length; i++) {
           setValue(wasmArray, wasmArrayOffset + i, jsArray[jsArrayOffset + i]);
         }
