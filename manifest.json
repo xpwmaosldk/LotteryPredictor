@@ -15,6 +15,13 @@
         "games"
     ],
     "prefer_related_applications": false,
+    "related_applications": [
+        {
+            "platform": "play",
+            "url": "https://play.google.com/store/apps/details?id=com.xpwmaosldk.lotto",
+            "id": "com.xpwmaosldk.lotto"
+        }
+    ],
     "icons": [
         {
             "src": "icons/Icon-192.png",
