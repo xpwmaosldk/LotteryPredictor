@@ -150,6 +150,13 @@
       animation: mix-5 2.0s infinite ease-in-out;
     }
 
+    .ball-6 {
+      background-color: #B0D840;
+      top: 65px;
+      left: 75px;
+      animation: mix-6 2.2s infinite ease-in-out;
+    }
+
     @keyframes mix-1 {
 
       0%,
@@ -230,6 +237,22 @@
       }
     }
 
+    @keyframes mix-6 {
+
+      0%,
+      100% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+
+      35% {
+        transform: translate(-35px, -30px) rotate(-120deg);
+      }
+
+      70% {
+        transform: translate(10px, -45px) rotate(-240deg);
+      }
+    }
+
     .progress-container {
       width: 200px;
       height: 12px;
@@ -268,6 +291,7 @@
       <div class="lotto-ball ball-3">22</div>
       <div class="lotto-ball ball-4">35</div>
       <div class="lotto-ball ball-5">41</div>
+      <div class="lotto-ball ball-6">45</div>
     </div>
     <div class="progress-container">
       <div id="progress-bar" class="progress-bar"></div>
@@ -277,6 +301,30 @@
 
   <script>
     (function () {
+      // 6개 로또 볼 랜덤 번호 생성 및 공식 색상 설정
+      function getSplashBallColor(num) {
+        if (num <= 10) return '#FBC400'; // 1~10: 노랑
+        if (num <= 20) return '#69C8F2'; // 11~20: 파랑
+        if (num <= 30) return '#FF7272'; // 21~30: 빨강
+        if (num <= 40) return '#AAAAAA'; // 31~40: 회색
+        return '#B0D840';                // 41~45: 초록
+      }
+
+      var randomNumbers = [];
+      while (randomNumbers.length < 6) {
+        var n = Math.floor(Math.random() * 45) + 1;
+        if (randomNumbers.indexOf(n) === -1) {
+          randomNumbers.push(n);
+        }
+      }
+      randomNumbers.sort(function (a, b) { return a - b; });
+
+      var balls = document.querySelectorAll('.balls-mixer .lotto-ball');
+      for (var i = 0; i < balls.length && i < randomNumbers.length; i++) {
+        balls[i].textContent = randomNumbers[i];
+        balls[i].style.backgroundColor = getSplashBallColor(randomNumbers[i]);
+      }
+
       var progress = 0;
       var progressBar = document.getElementById('progress-bar');
       var statusText = document.getElementById('loading-status');
