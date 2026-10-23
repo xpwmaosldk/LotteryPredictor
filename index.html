@@ -18,13 +18,8 @@
   <meta property="og:image" content="icons/Icon-192.png">
   <meta property="og:type" content="website">
 
-  <!-- PWA & Mobile Web App Meta Tags -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="로또 3D (Venus)">
+  <!-- Mobile Browser Meta Tags -->
   <meta name="theme-color" content="#E5B05C">
-  <meta name="msapplication-TileColor" content="#100C09">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Android Google Play Store Smart App Banner & Linking -->
@@ -35,7 +30,6 @@
   <link rel="icon" type="image/png" href="favicon.png" />
 
   <title>동행복권 로또 6/45 3D 물리 시뮬레이터</title>
-  <link rel="manifest" href="manifest.json">
 
   <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -360,17 +354,7 @@
   </script>
 
   <script>
-    // ── PWA Installation & Service Worker Integration ──
-    window._pwaInstalledFlag = false;
-    window.deferredPwaPrompt = null;
-    window.isPwaInstallAvailable = function () {
-      return window.deferredPwaPrompt !== null;
-    };
-    window.isPwaInstalled = function () {
-      return window._pwaInstalledFlag === true || window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-    };
-
-    // ── Screen Orientation Lock (PWA Standalone & Mobile) ──
+    // ── Screen Orientation Lock (Mobile Web) ──
     function lockPortraitOrientation() {
       if (screen && screen.orientation && typeof screen.orientation.lock === 'function') {
         screen.orientation.lock('portrait-primary').catch(function () {
@@ -384,39 +368,20 @@
     window.addEventListener('touchstart', lockPortraitOrientation, { once: true });
     window.addEventListener('click', lockPortraitOrientation, { once: true });
 
-    window.addEventListener('beforeinstallprompt', function (e) {
-      e.preventDefault();
-      window.deferredPwaPrompt = e;
-      window.dispatchEvent(new CustomEvent('pwa-install-available'));
-      console.log('CLDLotto: PWA install prompt is ready.');
-    });
-
-    window.addEventListener('appinstalled', function () {
-      window._pwaInstalledFlag = true;
-      window.deferredPwaPrompt = null;
-      window.dispatchEvent(new CustomEvent('pwa-installed'));
-      console.log('CLDLotto: App was installed successfully as PWA!');
-    });
-
-    window.promptPwaInstall = async function () {
-      if (window.deferredPwaPrompt) {
-        window.deferredPwaPrompt.prompt();
-        var choiceResult = await window.deferredPwaPrompt.userChoice;
-        var accepted = choiceResult && choiceResult.outcome === 'accepted';
-        window.deferredPwaPrompt = null;
-        return accepted;
-      }
-      return false;
-    };
-
+    // ── Service Worker Cleanup (기존 등록된 PWA Service Worker 및 캐시 완전 해제) ──
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('sw.js').then(function (reg) {
-          console.log('CLDLotto: ServiceWorker registered successfully with scope:', reg.scope);
-        }).catch(function (err) {
-          console.warn('CLDLotto: ServiceWorker registration failed:', err);
-        });
+      navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        for (var i = 0; i < registrations.length; i++) {
+          registrations[i].unregister();
+        }
       });
+      if ('caches' in window) {
+        caches.keys().then(function (keys) {
+          keys.forEach(function (key) {
+            caches.delete(key);
+          });
+        });
+      }
     }
 
     // ── Keep Awake Media Loop (화면 꺼짐 방지 백그라운드 미디어 반복 재생) ──
