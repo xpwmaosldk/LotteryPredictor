@@ -5,6 +5,10 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3567835121791860"
     crossorigin="anonymous"></script>
   <base href="/LotteryPredictor/">
+  <!-- PayPal SDK for Hosted Buttons (Donation) -->
+  <script
+    src="https://www.paypal.com/sdk/js?client-id=BAACPjxtF_2Dk68mDXf_KW8QDuplM7817eRZQELe9fRH9TYbMpT4aUcFIL7LYDukIZ7I2bhImgYx3Ff3FE&components=hosted-buttons&disable-funding=venmo&currency=USD">
+    </script>
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -273,6 +277,246 @@
       font-weight: 700;
       letter-spacing: 0.5px;
     }
+
+    /* PayPal Donation Modal Styling */
+    .paypal-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100000;
+      padding: 20px 16px;
+      box-sizing: border-box;
+      opacity: 0;
+      pointer-events: none;
+      overflow-y: auto;
+      transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .paypal-modal-backdrop.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .paypal-modal-card {
+      position: relative;
+      background: radial-gradient(circle at top, #2C2018 0%, #15100D 100%);
+      border: 1.5px solid rgba(229, 176, 92, 0.45);
+      border-radius: 24px;
+      padding: 28px 20px 20px 20px;
+      max-width: 460px;
+      width: 100%;
+      max-height: min(92vh, 820px);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.85), 0 0 28px rgba(229, 176, 92, 0.18);
+      color: #FAF7F2;
+      text-align: center;
+      box-sizing: border-box;
+      transform: scale(0.92);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .paypal-modal-backdrop.show .paypal-modal-card {
+      transform: scale(1);
+    }
+
+    .paypal-modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #A99F94;
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 0;
+      z-index: 10;
+    }
+
+    .paypal-modal-close:hover {
+      background: rgba(229, 176, 92, 0.25);
+      color: #FAF7F2;
+      border-color: #E5B05C;
+    }
+
+    .paypal-modal-header {
+      flex-shrink: 0;
+    }
+
+    .paypal-modal-icon {
+      font-size: 34px;
+      margin-bottom: 8px;
+      display: inline-block;
+      filter: drop-shadow(0 4px 12px rgba(229, 176, 92, 0.4));
+    }
+
+    .paypal-modal-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: #FAF7F2;
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .paypal-modal-subtitle {
+      font-size: 13.0px;
+      color: #C8BFB5;
+      line-height: 1.5;
+      margin-bottom: 16px;
+      word-break: keep-all;
+    }
+
+    .paypal-modal-body {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(229, 176, 92, 0.25);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-sizing: border-box;
+      text-align: left;
+    }
+
+    /* PayPal Hosted Buttons Internal Elements Style Overrides */
+    #paypal-container-HNBNUKCLZRXXE {
+      width: 100% !important;
+      max-width: 100% !important;
+      display: block !important;
+      box-sizing: border-box !important;
+    }
+
+    #paypal-container-HNBNUKCLZRXXE * {
+      box-sizing: border-box !important;
+    }
+
+    #paypal-form-fields-container-HNBNUKCLZRXXE-wrapper {
+      margin-top: 0 !important;
+      margin-bottom: 1rem !important;
+      width: 100% !important;
+    }
+
+    #paypal-form-fields-container-HNBNUKCLZRXXE {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 0.75rem !important;
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+
+    #paypal-form-fields-container-HNBNUKCLZRXXE .input-label {
+      color: #FAF7F2 !important;
+      font-size: 0.85rem !important;
+      font-weight: 600 !important;
+      margin-bottom: 0.35rem !important;
+    }
+
+    #paypal-form-fields-container-HNBNUKCLZRXXE .amount-container {
+      width: 100% !important;
+      position: relative !important;
+    }
+
+    #paypal-form-fields-container-HNBNUKCLZRXXE input {
+      width: 100% !important;
+      min-height: 2.75rem !important;
+      height: 2.75rem !important;
+      padding: 0.5rem 3.5rem 0.5rem 2.2rem !important;
+      font-size: 1rem !important;
+      color: #111111 !important;
+      background-color: #FFFFFF !important;
+      border: 1.5px solid rgba(229, 176, 92, 0.45) !important;
+      border-radius: 8px !important;
+      margin-bottom: 0 !important;
+      outline: none !important;
+    }
+
+    #paypal-form-fields-container-HNBNUKCLZRXXE input:focus {
+      border-color: #E5B05C !important;
+      box-shadow: 0 0 0 2px rgba(229, 176, 92, 0.3) !important;
+    }
+
+    #paypal-form-fields-container-HNBNUKCLZRXXE .currency-symbol {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      height: 2.75rem !important;
+      line-height: 2.75rem !important;
+      padding: 0 0.65rem !important;
+      font-size: 1rem !important;
+      font-weight: 700 !important;
+      color: #333333 !important;
+      pointer-events: none !important;
+    }
+
+    #paypal-form-fields-container-HNBNUKCLZRXXE .currency-label {
+      position: absolute !important;
+      top: 0 !important;
+      right: 0 !important;
+      height: 2.75rem !important;
+      line-height: 2.75rem !important;
+      padding: 0 0.75rem !important;
+      font-size: 0.85rem !important;
+      font-weight: 700 !important;
+      color: #666666 !important;
+      pointer-events: none !important;
+    }
+
+    #paypal-form-fields-container-HNBNUKCLZRXXE .selectContainer select {
+      width: 100% !important;
+      min-height: 2.75rem !important;
+      padding: 0.5rem 1.85rem 0.5rem 0.75rem !important;
+      font-size: 0.95rem !important;
+      color: #111111 !important;
+      background-color: #FFFFFF !important;
+      border: 1.5px solid rgba(229, 176, 92, 0.45) !important;
+      border-radius: 8px !important;
+    }
+
+    #paypal-form-fields-container-HNBNUKCLZRXXE textarea {
+      width: 100% !important;
+      color: #111111 !important;
+      background-color: #FFFFFF !important;
+      border: 1.5px solid rgba(229, 176, 92, 0.45) !important;
+      border-radius: 8px !important;
+      padding: 0.6rem !important;
+    }
+
+    /* PayPal Buttons container full width */
+    #paypal-container-HNBNUKCLZRXXE .paypal-buttons,
+    #paypal-container-HNBNUKCLZRXXE .paypal-buttons-context-iframe {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 100% !important;
+      margin: 0 auto !important;
+    }
+
+    #paypal-container-HNBNUKCLZRXXE iframe {
+      width: 100% !important;
+      min-width: 100% !important;
+    }
+
+    .paypal-modal-footer {
+      flex-shrink: 0;
+      font-size: 11.5px;
+      color: #8C8176;
+      line-height: 1.4;
+    }
   </style>
 </head>
 
@@ -359,7 +603,7 @@
       if (screen && screen.orientation && typeof screen.orientation.lock === 'function') {
         screen.orientation.lock('portrait-primary').catch(function () {
           if (typeof screen.orientation.lock === 'function') {
-            screen.orientation.lock('portrait').catch(function () {});
+            screen.orientation.lock('portrait').catch(function () { });
           }
         });
       }
@@ -460,11 +704,11 @@
           if (keepAwakeVideo) {
             keepAwakeVideo.pause();
           }
-        } catch (_) {}
+        } catch (_) { }
         if (wakeLockSentinel) {
           try {
             wakeLockSentinel.release();
-          } catch (_) {}
+          } catch (_) { }
           wakeLockSentinel = null;
         }
         return true;
@@ -478,12 +722,92 @@
         if (keepAwakeActive && document.visibilityState === 'visible') {
           try {
             if (keepAwakeVideo && keepAwakeVideo.paused) {
-              keepAwakeVideo.play().catch(function () {});
+              keepAwakeVideo.play().catch(function () { });
             }
-          } catch (_) {}
+          } catch (_) { }
           if (!wakeLockSentinel) {
             requestWakeLock();
           }
+        }
+      });
+    })();
+  </script>
+
+  <!-- PayPal Donation Modal & Hosted Button Container -->
+  <div id="paypal-donation-modal" class="paypal-modal-backdrop"
+    onclick="if(event.target===this) window.cldClosePaypalDonation()">
+    <div class="paypal-modal-card">
+      <button class="paypal-modal-close" onclick="window.cldClosePaypalDonation()" aria-label="닫기">&times;</button>
+      <div class="paypal-modal-header">
+        <div class="paypal-modal-icon">☕</div>
+      <div class="paypal-modal-title" id="paypal-title-text">개발자 후원하기 (PayPal)</div>
+      <div class="paypal-modal-subtitle" id="paypal-sub-text">
+        동행복권 3D 물리 시뮬레이터가 유익하셨나요?<br>
+        따뜻한 커피 한 잔의 후원이 서버 유지와 지속적인 업데이트에 큰 힘이 됩니다!
+      </div>
+      </div>
+      <div class="paypal-modal-body">
+        <div id="paypal-container-HNBNUKCLZRXXE"></div>
+      </div>
+      <div class="paypal-modal-footer" id="paypal-footer-text">
+        PayPal의 안전한 보안 결제 시스템을 통해 기부됩니다.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var isPaypalRendered = false;
+
+      window.cldOpenPaypalDonation = function (lang) {
+        var modal = document.getElementById('paypal-donation-modal');
+        if (!modal) return false;
+
+        // 다국어 텍스트 반영
+        var titleEl = document.getElementById('paypal-title-text');
+        var subEl = document.getElementById('paypal-sub-text');
+        var footerEl = document.getElementById('paypal-footer-text');
+        if (lang === 'en') {
+          if (titleEl) titleEl.innerText = 'Support Developer (PayPal)';
+          if (subEl) subEl.innerHTML = 'Enjoying the 3D Physics Lottery Simulator?<br>Buying the developer a coffee helps keep the servers running and supports continuous updates!';
+          if (footerEl) footerEl.innerText = 'Donation is securely processed via PayPal.';
+        } else {
+          if (titleEl) titleEl.innerText = '개발자 후원하기 (PayPal)';
+          if (subEl) subEl.innerHTML = '동행복권 3D 물리 시뮬레이터가 유익하셨나요?<br>따뜻한 커피 한 잔의 후원이 서버 유지와 지속적인 업데이트에 큰 힘이 됩니다!';
+          if (footerEl) footerEl.innerText = 'PayPal의 안전한 보안 결제 시스템을 통해 기부됩니다.';
+        }
+
+        modal.classList.add('show');
+
+        // PayPal Hosted Buttons 최초 렌더링
+        if (!isPaypalRendered) {
+          if (window.paypal && typeof window.paypal.HostedButtons === 'function') {
+            try {
+              window.paypal.HostedButtons({
+                hostedButtonId: "HNBNUKCLZRXXE",
+              }).render("#paypal-container-HNBNUKCLZRXXE");
+              isPaypalRendered = true;
+            } catch (err) {
+              console.error('PayPal button render error:', err);
+            }
+          } else {
+            console.warn('PayPal SDK is not ready yet.');
+          }
+        }
+        return true;
+      };
+
+      window.cldClosePaypalDonation = function () {
+        var modal = document.getElementById('paypal-donation-modal');
+        if (modal) {
+          modal.classList.remove('show');
+        }
+        return true;
+      };
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          window.cldClosePaypalDonation();
         }
       });
     })();
