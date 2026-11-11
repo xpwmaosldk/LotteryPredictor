@@ -511,6 +511,88 @@
       min-width: 100% !important;
     }
 
+    /* Preset Donation Chips */
+    .paypal-preset-amounts {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .preset-chip {
+      flex: 1 1 calc(25% - 8px);
+      min-width: 70px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(229, 176, 92, 0.35);
+      border-radius: 10px;
+      color: #E2D9CE;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 6px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: inherit;
+      text-align: center;
+    }
+
+    .preset-chip:hover {
+      background: rgba(229, 176, 92, 0.2);
+      border-color: #E5B05C;
+      color: #FAF7F2;
+      transform: translateY(-1px);
+    }
+
+    .preset-chip.active {
+      background: linear-gradient(135deg, #FFD54F 0%, #D4A017 100%);
+      border-color: #FFD54F;
+      color: #1A1410;
+      box-shadow: 0 4px 12px rgba(255, 213, 79, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .paypal-sdk-loading {
+      text-align: center;
+      color: rgba(250, 247, 242, 0.7);
+      font-size: 12.5px;
+      padding: 12px 0;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .paypal-direct-container {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(229, 176, 92, 0.25);
+      text-align: center;
+    }
+
+    .paypal-direct-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      background: rgba(255, 213, 79, 0.12);
+      border: 1.2px solid rgba(255, 213, 79, 0.5);
+      border-radius: 12px;
+      color: #FFD54F;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 10px 14px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+    }
+
+    .paypal-direct-link:hover {
+      background: rgba(255, 213, 79, 0.25);
+      border-color: #FFD54F;
+      color: #FFF;
+      box-shadow: 0 4px 14px rgba(255, 213, 79, 0.25);
+      transform: translateY(-1px);
+    }
+
     .paypal-modal-footer {
       flex-shrink: 0;
       font-size: 11.5px;
@@ -740,14 +822,27 @@
       <button class="paypal-modal-close" onclick="window.cldClosePaypalDonation()" aria-label="닫기">&times;</button>
       <div class="paypal-modal-header">
         <div class="paypal-modal-icon">☕</div>
-      <div class="paypal-modal-title" id="paypal-title-text">개발자 후원하기 (PayPal)</div>
-      <div class="paypal-modal-subtitle" id="paypal-sub-text">
-        동행복권 3D 물리 시뮬레이터가 유익하셨나요?<br>
-        따뜻한 커피 한 잔의 후원이 서버 유지와 지속적인 업데이트에 큰 힘이 됩니다!
-      </div>
+        <div class="paypal-modal-title" id="paypal-title-text">개발자 후원하기 (PayPal)</div>
+        <div class="paypal-modal-subtitle" id="paypal-sub-text">
+          동행복권 3D 물리 시뮬레이터가 유익하셨나요?<br>
+          따뜻한 커피 한 잔의 후원이 서버 유지와 지속적인 업데이트에 큰 힘이 됩니다!
+        </div>
       </div>
       <div class="paypal-modal-body">
+        <div class="paypal-preset-amounts" id="paypal-preset-amounts">
+          <button type="button" class="preset-chip" data-amount="2" onclick="window.cldSetDonationAmount(2)">☕ $2</button>
+          <button type="button" class="preset-chip active" data-amount="3" onclick="window.cldSetDonationAmount(3)">☕ $3 (기본)</button>
+          <button type="button" class="preset-chip" data-amount="5" onclick="window.cldSetDonationAmount(5)">🍰 $5</button>
+          <button type="button" class="preset-chip" data-amount="10" onclick="window.cldSetDonationAmount(10)">💖 $10</button>
+        </div>
+        <div id="paypal-sdk-loading" class="paypal-sdk-loading">PayPal 결제 모듈 불러오는 중...</div>
         <div id="paypal-container-HNBNUKCLZRXXE"></div>
+        <div class="paypal-direct-container">
+          <a id="paypal-direct-btn" href="https://www.paypal.com/ncp/payment/HNBNUKCLZRXXE" target="_blank" rel="noopener noreferrer" class="paypal-direct-link">
+            <span id="paypal-direct-link-text">☕ PayPal로 직접 후원하기 (새 창)</span>
+            <span style="font-size: 15px; margin-left: 2px;">↗</span>
+          </a>
+        </div>
       </div>
       <div class="paypal-modal-footer" id="paypal-footer-text">
         PayPal의 안전한 보안 결제 시스템을 통해 기부됩니다.
@@ -758,6 +853,69 @@
   <script>
     (function () {
       var isPaypalRendered = false;
+      var selectedAmount = 3;
+
+      window.cldSetDonationAmount = function (amount) {
+        selectedAmount = amount;
+        var chips = document.querySelectorAll('.preset-chip');
+        chips.forEach(function (chip) {
+          if (parseInt(chip.getAttribute('data-amount'), 10) === amount) {
+            chip.classList.add('active');
+          } else {
+            chip.classList.remove('active');
+          }
+        });
+
+        var input = document.getElementById('amount');
+        if (input) {
+          input.value = amount;
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+          input.dispatchEvent(new Event('keyup', { bubbles: true }));
+        }
+      };
+
+      function tryRenderPaypalButton() {
+        if (isPaypalRendered) return;
+        var container = document.getElementById('paypal-container-HNBNUKCLZRXXE');
+        var loadingEl = document.getElementById('paypal-sdk-loading');
+
+        if (window.paypal && typeof window.paypal.HostedButtons === 'function') {
+          try {
+            window.paypal.HostedButtons({
+              hostedButtonId: "HNBNUKCLZRXXE",
+            }).render("#paypal-container-HNBNUKCLZRXXE").then(function () {
+              isPaypalRendered = true;
+              if (loadingEl) loadingEl.style.display = 'none';
+
+              var form = container ? container.querySelector('form') : null;
+              if (form) {
+                form.setAttribute('target', '_blank');
+              }
+
+              window.cldSetDonationAmount(selectedAmount);
+            }).catch(function (err) {
+              console.error('PayPal render error:', err);
+              if (loadingEl) {
+                loadingEl.innerHTML = 'PayPal 임베디드 결제 연결이 지연되고 있습니다.<br>아래 [PayPal로 직접 후원하기]를 이용해 주세요.';
+              }
+            });
+          } catch (err) {
+            console.error('PayPal button render exception:', err);
+            if (loadingEl) {
+              loadingEl.innerHTML = 'PayPal 임베디드 결제 연결이 지연되고 있습니다.<br>아래 [PayPal로 직접 후원하기]를 이용해 주세요.';
+            }
+          }
+        } else {
+          setTimeout(function () {
+            if (!isPaypalRendered && window.paypal && typeof window.paypal.HostedButtons === 'function') {
+              tryRenderPaypalButton();
+            } else if (!isPaypalRendered && loadingEl) {
+              loadingEl.innerHTML = '브라우저 설정(광고 차단 등)으로 PayPal 모듈이 지연되고 있습니다.<br>아래 [PayPal로 직접 후원하기] 버튼을 이용해 주세요.';
+            }
+          }, 1800);
+        }
+      }
 
       window.cldOpenPaypalDonation = function (lang) {
         var modal = document.getElementById('paypal-donation-modal');
@@ -767,33 +925,30 @@
         var titleEl = document.getElementById('paypal-title-text');
         var subEl = document.getElementById('paypal-sub-text');
         var footerEl = document.getElementById('paypal-footer-text');
+        var directLinkText = document.getElementById('paypal-direct-link-text');
+
         if (lang === 'en') {
           if (titleEl) titleEl.innerText = 'Support Developer (PayPal)';
           if (subEl) subEl.innerHTML = 'Enjoying the 3D Physics Lottery Simulator?<br>Buying the developer a coffee helps keep the servers running and supports continuous updates!';
           if (footerEl) footerEl.innerText = 'Donation is securely processed via PayPal.';
+          if (directLinkText) directLinkText.innerText = '☕ Donate via PayPal directly (New Tab)';
         } else {
           if (titleEl) titleEl.innerText = '개발자 후원하기 (PayPal)';
           if (subEl) subEl.innerHTML = '동행복권 3D 물리 시뮬레이터가 유익하셨나요?<br>따뜻한 커피 한 잔의 후원이 서버 유지와 지속적인 업데이트에 큰 힘이 됩니다!';
           if (footerEl) footerEl.innerText = 'PayPal의 안전한 보안 결제 시스템을 통해 기부됩니다.';
+          if (directLinkText) directLinkText.innerText = '☕ PayPal로 직접 후원하기 (새 창)';
         }
 
         modal.classList.add('show');
 
         // PayPal Hosted Buttons 최초 렌더링
-        if (!isPaypalRendered) {
-          if (window.paypal && typeof window.paypal.HostedButtons === 'function') {
-            try {
-              window.paypal.HostedButtons({
-                hostedButtonId: "HNBNUKCLZRXXE",
-              }).render("#paypal-container-HNBNUKCLZRXXE");
-              isPaypalRendered = true;
-            } catch (err) {
-              console.error('PayPal button render error:', err);
-            }
-          } else {
-            console.warn('PayPal SDK is not ready yet.');
-          }
+        tryRenderPaypalButton();
+
+        // 렌더링 완료된 상태라면 기본 금액 갱신
+        if (isPaypalRendered) {
+          window.cldSetDonationAmount(selectedAmount);
         }
+
         return true;
       };
 
