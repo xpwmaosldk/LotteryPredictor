@@ -1,6 +1,6 @@
 {
-    "name": "동행복권 로또 6/45 3D 물리 시뮬레이터 (Venus 3D)",
-    "short_name": "로또 3D (Venus)",
+    "name": "복뽑기",
+    "short_name": "복뽑기",
     "start_url": "./",
     "scope": "./",
     "id": "./",

@@ -14,16 +14,16 @@
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description"
     content="정밀한 3D 물리 엔진과 Air Mix 대류 시뮬레이션 시스템을 탑재한 프리미엄 로또 번호 추첨 시뮬레이터입니다. 실제 로또 비너스 기기의 동작 방식을 그대로 체험해보세요.">
-  <meta name="keywords" content="로또, 로또645, 로또시뮬레이터, 3D물리엔진, 번호추첨기, Flame, Flutter">
+  <meta name="keywords" content="복뽑기, 로또, 로또645, 로또시뮬레이터, 3D물리엔진, 번호추첨기, Flame, Flutter">
 
   <!-- OpenGraph (SNS 공유용) -->
-  <meta property="og:title" content="동행복권 로또 6/45 3D 물리 시뮬레이터">
+  <meta property="og:title" content="복뽑기 - 로또 6/45 3D 물리 시뮬레이터">
   <meta property="og:description" content="실제 추첨 방식 그대로 구현된 3D 물리 기반의 번호 추천 및 추첨기입니다.">
   <meta property="og:image" content="icons/Icon-192.png">
   <meta property="og:type" content="website">
 
   <!-- Mobile Browser Meta Tags -->
-  <meta name="theme-color" content="#E5B05C">
+  <meta name="theme-color" content="#050507">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Android Google Play Store Smart App Banner & Linking -->
@@ -33,7 +33,7 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png" />
 
-  <title>동행복권 로또 6/45 3D 물리 시뮬레이터</title>
+  <title>복뽑기 - 로또 6/45 3D 물리 시뮬레이터</title>
 
   <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,11 +42,11 @@
 
   <style>
     body {
-      background-color: #100C09;
+      background-color: #050507;
       margin: 0;
       padding: 0;
       overflow: hidden;
-      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Outfit', "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     #loading-container {
@@ -59,7 +59,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: radial-gradient(circle, #281E15 0%, #100C09 100%);
+      background: radial-gradient(circle, #111114 0%, #050507 100%);
       z-index: 9999;
       transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -70,18 +70,75 @@
     }
 
     .loader-title {
-      color: #FFFFFF;
-      font-size: 20px;
-      font-weight: 900;
-      margin-bottom: 24px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      text-shadow: 2px 2px 0px #000000;
-      border: 3px solid #000000;
-      background-color: #1A1410;
-      padding: 10px 20px;
-      border-radius: 12px;
-      box-shadow: 4px 4px 0px #000000;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      padding: 0 16px;
+      max-width: calc(100vw - 32px);
+    }
+
+    .brand-wordmark-svg {
+      display: block;
+      height: 58px;
+      width: auto;
+      max-width: 100%;
+      overflow: visible;
+    }
+
+    .brand-wordmark-svg.lang-en {
+      height: 50px;
+    }
+
+    .brand-wordmark-svg .seal-group {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: seal-stamp-in 0.53s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .brand-wordmark-svg .lettering-reveal-group {
+      animation: lettering-reveal 0.58s cubic-bezier(0.22, 1, 0.36, 1) 0.34s both;
+    }
+
+    .brand-wordmark-svg .accent-group {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: accent-pop 0.44s cubic-bezier(0.34, 1.56, 0.64, 1) 0.66s both;
+    }
+
+    @keyframes seal-stamp-in {
+      0% {
+        opacity: 0;
+        transform: rotate(-12.6deg) scale(1.65);
+      }
+      100% {
+        opacity: 1;
+        transform: rotate(-3.5deg) scale(1);
+      }
+    }
+
+    @keyframes lettering-reveal {
+      0% {
+        opacity: 0;
+        transform: translateX(-10px);
+        clip-path: inset(0 100% 0 0);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+        clip-path: inset(-10% -10% -10% -10%);
+      }
+    }
+
+    @keyframes accent-pop {
+      0% {
+        opacity: 0;
+        transform: scale(0.15);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     /* Lotto Balls Mixing Animation */
@@ -90,9 +147,9 @@
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      border: 4px solid #000000;
-      background: rgba(255, 255, 255, 0.03);
-      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6), 4px 4px 0px #000000;
+      border: 1.6px solid rgba(243, 238, 228, 0.48);
+      background: radial-gradient(circle at 50% 42%, #1B1B1F 0%, #101013 60%, #070709 100%);
+      box-shadow: inset 0 0 22px rgba(0, 0, 0, 0.70), 0 10px 24px rgba(0, 0, 0, 0.62), 0 0 18px rgba(243, 238, 228, 0.10);
       margin-bottom: 30px;
       overflow: hidden;
     }
@@ -102,15 +159,15 @@
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      border: 2px solid #000000;
+      border: 1px solid rgba(255, 255, 255, 0.28);
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 9px;
+      font-size: 9.5px;
       font-weight: 900;
-      color: #000000;
+      color: #0C0C0E;
       box-sizing: border-box;
-      box-shadow: inset -3px -3px 0px rgba(0, 0, 0, 0.15);
+      box-shadow: inset -3px -3px 4px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.45);
     }
 
     .ball-1 {
@@ -252,22 +309,47 @@
     }
 
     .progress-container {
-      width: 200px;
-      height: 12px;
-      border: 3px solid #000000;
-      background-color: #1A1410;
-      border-radius: 6px;
+      width: 210px;
+      height: 10px;
+      border: 1px solid rgba(243, 238, 228, 0.16);
+      background-color: #18181C;
+      border-radius: 999px;
       overflow: hidden;
       position: relative;
-      box-shadow: 2px 2px 0px #000000;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.40);
     }
 
     .progress-bar {
       height: 100%;
       width: 0%;
-      background-color: #00BFA5;
-      border-right: 3px solid #000000;
+      background: linear-gradient(90deg, #E4DDD0 0%, #FAF7F0 100%);
+      border-radius: 999px;
       transition: width 0.3s ease;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .lotto-ball {
+        animation: none !important;
+      }
+      .progress-bar {
+        transition: none !important;
+      }
+      .brand-wordmark-svg .seal-group {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: rotate(-3.5deg) scale(1) !important;
+      }
+      .brand-wordmark-svg .lettering-reveal-group {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        clip-path: none !important;
+      }
+      .brand-wordmark-svg .accent-group {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: scale(1) !important;
+      }
     }
 
     .loading-status {
@@ -307,8 +389,8 @@
 
     .paypal-modal-card {
       position: relative;
-      background: radial-gradient(circle at top, #2C2018 0%, #15100D 100%);
-      border: 1.5px solid rgba(229, 176, 92, 0.45);
+      background: radial-gradient(circle at top, #1B1B1F 0%, #101013 100%);
+      border: 1px solid rgba(243, 238, 228, 0.14);
       border-radius: 24px;
       padding: 28px 20px 20px 20px;
       max-width: 460px;
@@ -316,8 +398,8 @@
       max-height: min(92vh, 820px);
       display: flex;
       flex-direction: column;
-      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.85), 0 0 28px rgba(229, 176, 92, 0.18);
-      color: #FAF7F2;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.74), 0 0 22px rgba(243, 238, 228, 0.08);
+      color: #FAF8F4;
       text-align: center;
       box-sizing: border-box;
       transform: scale(0.92);
@@ -340,7 +422,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #A99F94;
+      color: #A6A097;
       font-size: 20px;
       line-height: 1;
       cursor: pointer;
@@ -350,9 +432,9 @@
     }
 
     .paypal-modal-close:hover {
-      background: rgba(229, 176, 92, 0.25);
-      color: #FAF7F2;
-      border-color: #E5B05C;
+      background: rgba(243, 238, 228, 0.14);
+      color: #FAF8F4;
+      border-color: #E6B964;
     }
 
     .paypal-modal-header {
@@ -363,20 +445,20 @@
       font-size: 34px;
       margin-bottom: 8px;
       display: inline-block;
-      filter: drop-shadow(0 4px 12px rgba(229, 176, 92, 0.4));
+      filter: drop-shadow(0 4px 12px rgba(230, 185, 100, 0.35));
     }
 
     .paypal-modal-title {
       font-size: 19px;
       font-weight: 800;
-      color: #FAF7F2;
+      color: #FAF8F4;
       margin-bottom: 6px;
       letter-spacing: -0.3px;
     }
 
     .paypal-modal-subtitle {
       font-size: 13.0px;
-      color: #C8BFB5;
+      color: #CBC5BB;
       line-height: 1.5;
       margin-bottom: 16px;
       word-break: keep-all;
@@ -386,7 +468,7 @@
       flex: 1 1 auto;
       overflow-y: auto;
       background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(229, 176, 92, 0.25);
+      border: 1px solid rgba(243, 238, 228, 0.12);
       border-radius: 16px;
       padding: 16px;
       margin-bottom: 14px;
@@ -421,7 +503,7 @@
     }
 
     #paypal-form-fields-container-HNBNUKCLZRXXE .input-label {
-      color: #FAF7F2 !important;
+      color: #FBF9FA !important;
       font-size: 0.85rem !important;
       font-weight: 600 !important;
       margin-bottom: 0.35rem !important;
@@ -440,15 +522,15 @@
       font-size: 1rem !important;
       color: #111111 !important;
       background-color: #FFFFFF !important;
-      border: 1.5px solid rgba(229, 176, 92, 0.45) !important;
+      border: 1.5px solid rgba(230, 185, 100, 0.45) !important;
       border-radius: 8px !important;
       margin-bottom: 0 !important;
       outline: none !important;
     }
 
     #paypal-form-fields-container-HNBNUKCLZRXXE input:focus {
-      border-color: #E5B05C !important;
-      box-shadow: 0 0 0 2px rgba(229, 176, 92, 0.3) !important;
+      border-color: #E6B964 !important;
+      box-shadow: 0 0 0 2px rgba(230, 185, 100, 0.3) !important;
     }
 
     #paypal-form-fields-container-HNBNUKCLZRXXE .currency-symbol {
@@ -484,7 +566,7 @@
       font-size: 0.95rem !important;
       color: #111111 !important;
       background-color: #FFFFFF !important;
-      border: 1.5px solid rgba(229, 176, 92, 0.45) !important;
+      border: 1.5px solid rgba(230, 185, 100, 0.45) !important;
       border-radius: 8px !important;
     }
 
@@ -492,7 +574,7 @@
       width: 100% !important;
       color: #111111 !important;
       background-color: #FFFFFF !important;
-      border: 1.5px solid rgba(229, 176, 92, 0.45) !important;
+      border: 1.5px solid rgba(230, 185, 100, 0.45) !important;
       border-radius: 8px !important;
       padding: 0.6rem !important;
     }
@@ -523,9 +605,9 @@
       flex: 1 1 calc(25% - 8px);
       min-width: 70px;
       background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(229, 176, 92, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: 10px;
-      color: #E2D9CE;
+      color: #D6D0C6;
       font-size: 13px;
       font-weight: 700;
       padding: 8px 6px;
@@ -536,23 +618,23 @@
     }
 
     .preset-chip:hover {
-      background: rgba(229, 176, 92, 0.2);
-      border-color: #E5B05C;
-      color: #FAF7F2;
+      background: rgba(243, 238, 228, 0.14);
+      border-color: #E6B964;
+      color: #FAF8F4;
       transform: translateY(-1px);
     }
 
     .preset-chip.active {
-      background: linear-gradient(135deg, #FFD54F 0%, #D4A017 100%);
-      border-color: #FFD54F;
-      color: #1A1410;
-      box-shadow: 0 4px 12px rgba(255, 213, 79, 0.35);
+      background: linear-gradient(135deg, #E6B964 0%, #C59035 100%);
+      border-color: #F7DA9C;
+      color: #0E0D0B;
+      box-shadow: 0 4px 12px rgba(230, 185, 100, 0.28);
       transform: translateY(-1px);
     }
 
     .paypal-sdk-loading {
       text-align: center;
-      color: rgba(250, 247, 242, 0.7);
+      color: rgba(250, 248, 244, 0.7);
       font-size: 12.5px;
       padding: 12px 0;
       font-weight: 600;
@@ -562,7 +644,7 @@
     .paypal-direct-container {
       margin-top: 14px;
       padding-top: 12px;
-      border-top: 1px dashed rgba(229, 176, 92, 0.25);
+      border-top: 1px dashed rgba(255, 255, 255, 0.14);
       text-align: center;
     }
 
@@ -572,10 +654,10 @@
       justify-content: center;
       gap: 6px;
       width: 100%;
-      background: rgba(255, 213, 79, 0.12);
-      border: 1.2px solid rgba(255, 213, 79, 0.5);
+      background: rgba(243, 238, 228, 0.10);
+      border: 1.2px solid rgba(230, 185, 100, 0.55);
       border-radius: 12px;
-      color: #FFD54F;
+      color: #F3EEE4;
       font-size: 13.5px;
       font-weight: 700;
       padding: 10px 14px;
@@ -586,17 +668,17 @@
     }
 
     .paypal-direct-link:hover {
-      background: rgba(255, 213, 79, 0.25);
-      border-color: #FFD54F;
-      color: #FFF;
-      box-shadow: 0 4px 14px rgba(255, 213, 79, 0.25);
+      background: rgba(230, 185, 100, 0.20);
+      border-color: #E6B964;
+      color: #FAF8F4;
+      box-shadow: 0 4px 14px rgba(230, 185, 100, 0.20);
       transform: translateY(-1px);
     }
 
     .paypal-modal-footer {
       flex-shrink: 0;
       font-size: 11.5px;
-      color: #8C8176;
+      color: #8E8880;
       line-height: 1.4;
     }
   </style>
@@ -604,7 +686,145 @@
 
 <body>
   <div id="loading-container">
-    <div class="loader-title">Lotto 6/45 Simulation</div>
+    <div class="loader-title" role="heading" aria-level="1" aria-label="복뽑기">
+      <!-- 한국어 워드마크 SVG (BrandWordmarkPainter와 좌표 동기화) -->
+      <svg id="loader-brand-ko" class="brand-wordmark-svg" viewBox="0 0 274 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="sealBgKo" cx="35%" cy="30%" r="75%">
+            <stop offset="0%" stop-color="#E53935" />
+            <stop offset="56%" stop-color="#C62828" />
+            <stop offset="100%" stop-color="#8C1414" />
+          </radialGradient>
+          <linearGradient id="sealGoldRimKo" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FFF2C2" />
+            <stop offset="50%" stop-color="#E6B964" />
+            <stop offset="100%" stop-color="#A87424" />
+          </linearGradient>
+          <linearGradient id="sealGlyphKo" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFFDF5" />
+            <stop offset="100%" stop-color="#FFE8A6" />
+          </linearGradient>
+          <linearGradient id="letterGoldKo" x1="0" y1="20" x2="0" y2="84" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FFFCF2" />
+            <stop offset="36%" stop-color="#FFEAB0" />
+            <stop offset="72%" stop-color="#E6B964" />
+            <stop offset="100%" stop-color="#C99236" />
+          </linearGradient>
+          <radialGradient id="ballGoldKo" cx="34%" cy="34%" r="72%">
+            <stop offset="0%" stop-color="#FFF8DC" />
+            <stop offset="28%" stop-color="#F7DA9C" />
+            <stop offset="68%" stop-color="#E6B964" />
+            <stop offset="100%" stop-color="#9E6B1E" />
+          </radialGradient>
+          <linearGradient id="arcGoldKo" x1="216" y1="50" x2="247" y2="27" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#E6B964" stop-opacity="0.05" />
+            <stop offset="100%" stop-color="#F7DA9C" stop-opacity="0.9" />
+          </linearGradient>
+        </defs>
+        <g transform="translate(44 50)">
+          <g class="seal-group">
+            <rect x="-35" y="-30.5" width="70" height="70" rx="14" fill="#000000" fill-opacity="0.44" />
+            <rect x="-35" y="-31.8" width="70" height="70" rx="14" fill="#560A0A" />
+            <rect x="-35" y="-35" width="70" height="70" rx="14" fill="url(#sealBgKo)" stroke="url(#sealGoldRimKo)" stroke-width="2.8" />
+            <rect x="-29.75" y="-29.75" width="59.5" height="59.5" rx="9.5" fill="none" stroke="#F7DA9C" stroke-opacity="0.45" stroke-width="1.2" />
+            <path d="M-13.5,-21.5 L-13.5,-6 L13.5,-6 L13.5,-21.5 M-13.5,-13.8 L13.5,-13.8 M0,-5.8 L0,3.5 M-19.5,4 L19.5,4 M-14,13 L14,13 L14,23.5" transform="translate(0 1.8)" fill="none" stroke="#5A0B0B" stroke-opacity="0.72" stroke-width="5.3" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M-13.5,-21.5 L-13.5,-6 L13.5,-6 L13.5,-21.5 M-13.5,-13.8 L13.5,-13.8 M0,-5.8 L0,3.5 M-19.5,4 L19.5,4 M-14,13 L14,13 L14,23.5" fill="none" stroke="url(#sealGlyphKo)" stroke-width="4.7" stroke-linecap="round" stroke-linejoin="round" />
+          </g>
+        </g>
+        <g class="lettering-reveal-group">
+          <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path id="ko-ppop" d="M95,22 L95,42.5 L113,42.5 L113,22 M95,32 L113,32 M127,22 L127,42.5 L145,42.5 L145,22 M127,32 L145,32 M120,44.5 L120,53.5 M90,53.5 L150,53.5 M101,64 L101,81.5 L139,81.5 L139,64 M101,72.5 L139,72.5" />
+            <path id="ko-gi" d="M164,29 L194,29 Q192,54 169,74 M213,23 L213,81" />
+          </g>
+          <use href="#ko-ppop" transform="translate(0 6.2)" fill="none" stroke="#000000" stroke-opacity="0.4" stroke-width="15.8" stroke-linecap="round" stroke-linejoin="round" />
+          <use href="#ko-ppop" transform="translate(0 4.4)" fill="none" stroke="#2B1707" stroke-width="14.4" stroke-linecap="round" stroke-linejoin="round" />
+          <use href="#ko-ppop" transform="translate(0 2.4)" fill="none" stroke="#5C3511" stroke-width="14.4" stroke-linecap="round" stroke-linejoin="round" />
+          <use href="#ko-ppop" fill="none" stroke="#241409" stroke-width="14.4" stroke-linecap="round" stroke-linejoin="round" />
+          <use href="#ko-ppop" fill="none" stroke="url(#letterGoldKo)" stroke-width="8.2" stroke-linecap="round" stroke-linejoin="round" />
+          <use href="#ko-ppop" transform="translate(0 -1.4)" fill="none" stroke="#FFFDF6" stroke-opacity="0.28" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" />
+          <use href="#ko-gi" transform="translate(0 6.2)" fill="none" stroke="#000000" stroke-opacity="0.4" stroke-width="17" stroke-linecap="round" stroke-linejoin="round" />
+          <use href="#ko-gi" transform="translate(0 4.4)" fill="none" stroke="#2B1707" stroke-width="15.6" stroke-linecap="round" stroke-linejoin="round" />
+          <use href="#ko-gi" transform="translate(0 2.4)" fill="none" stroke="#5C3511" stroke-width="15.6" stroke-linecap="round" stroke-linejoin="round" />
+          <use href="#ko-gi" fill="none" stroke="#241409" stroke-width="15.6" stroke-linecap="round" stroke-linejoin="round" />
+          <use href="#ko-gi" fill="none" stroke="url(#letterGoldKo)" stroke-width="9.4" stroke-linecap="round" stroke-linejoin="round" />
+          <use href="#ko-gi" transform="translate(0 -1.6)" fill="none" stroke="#FFFDF6" stroke-opacity="0.28" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+        </g>
+        <g class="accent-group">
+          <path d="M216,46 Q227,24 236,21.5" fill="none" stroke="url(#arcGoldKo)" stroke-width="2.3" stroke-linecap="round" />
+          <path d="M221,53 Q234,36 239,33" fill="none" stroke="url(#arcGoldKo)" stroke-width="1.7" stroke-linecap="round" />
+          <circle cx="247" cy="30" r="13.5" fill="#000000" fill-opacity="0.42" />
+          <circle cx="247" cy="27" r="13.5" fill="url(#ballGoldKo)" stroke="#FFF4CC" stroke-opacity="0.72" stroke-width="1.3" />
+          <ellipse cx="242.4" cy="22.2" rx="3.1" ry="1.7" transform="rotate(-31 242.4 22.2)" fill="#FFFFFF" fill-opacity="0.72" />
+          <path d="M230,6.5 Q231.7,11.3 236.5,13 Q231.7,14.7 230,19.5 Q228.3,14.7 223.5,13 Q228.3,11.3 230,6.5 Z" fill="#FFEAAD" />
+          <path d="M261,48.5 Q262.4,52.6 266.5,54 Q262.4,55.4 261,59.5 Q259.6,55.4 255.5,54 Q259.6,52.6 261,48.5 Z" fill="#FFEAAD" fill-opacity="0.9" />
+        </g>
+      </svg>
+      <!-- 영문 워드마크 SVG (BrandWordmarkPainter와 좌표 동기화) -->
+      <svg id="loader-brand-en" class="brand-wordmark-svg lang-en" viewBox="0 0 384 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="display: none;">
+        <defs>
+          <radialGradient id="sealBgEn" cx="35%" cy="30%" r="75%">
+            <stop offset="0%" stop-color="#E53935" />
+            <stop offset="56%" stop-color="#C62828" />
+            <stop offset="100%" stop-color="#8C1414" />
+          </radialGradient>
+          <linearGradient id="sealGoldRimEn" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FFF2C2" />
+            <stop offset="50%" stop-color="#E6B964" />
+            <stop offset="100%" stop-color="#A87424" />
+          </linearGradient>
+          <linearGradient id="sealGlyphEn" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFFDF5" />
+            <stop offset="100%" stop-color="#FFE8A6" />
+          </linearGradient>
+          <linearGradient id="letterGoldEn" x1="0" y1="20" x2="0" y2="84" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FFFCF2" />
+            <stop offset="36%" stop-color="#FFEAB0" />
+            <stop offset="72%" stop-color="#E6B964" />
+            <stop offset="100%" stop-color="#C99236" />
+          </linearGradient>
+          <radialGradient id="ballGoldEn" cx="34%" cy="34%" r="72%">
+            <stop offset="0%" stop-color="#FFF8DC" />
+            <stop offset="28%" stop-color="#F7DA9C" />
+            <stop offset="68%" stop-color="#E6B964" />
+            <stop offset="100%" stop-color="#9E6B1E" />
+          </radialGradient>
+          <linearGradient id="arcGoldEn" x1="326" y1="50" x2="357" y2="27" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#E6B964" stop-opacity="0.05" />
+            <stop offset="100%" stop-color="#F7DA9C" stop-opacity="0.9" />
+          </linearGradient>
+        </defs>
+        <g transform="translate(44 50)">
+          <g class="seal-group">
+            <rect x="-35" y="-30.5" width="70" height="70" rx="14" fill="#000000" fill-opacity="0.44" />
+            <rect x="-35" y="-31.8" width="70" height="70" rx="14" fill="#560A0A" />
+            <rect x="-35" y="-35" width="70" height="70" rx="14" fill="url(#sealBgEn)" stroke="url(#sealGoldRimEn)" stroke-width="2.8" />
+            <rect x="-29.75" y="-29.75" width="59.5" height="59.5" rx="9.5" fill="none" stroke="#F7DA9C" stroke-opacity="0.45" stroke-width="1.2" />
+            <path d="M-10,-18.5 L-10,17 L14,17" transform="translate(0 1.8)" fill="none" stroke="#5A0B0B" stroke-opacity="0.72" stroke-width="7.4" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M-10,-18.5 L-10,17 L14,17" fill="none" stroke="url(#sealGlyphEn)" stroke-width="6.8" stroke-linecap="round" stroke-linejoin="round" />
+          </g>
+        </g>
+        <g class="lettering-reveal-group">
+          <g fill="none">
+            <path id="en-uckpick" d="M93,43 L93,63 C93,77 117,77 117,63 L117,43 M117,57 L117,74 M155,47 C147,39.5 132,43.5 132,59 C132,74.5 147,78.5 155,71 M170,24 L170,74 M194,44 L172,59.5 M179,55.5 L195,74 M213,25 L213,74 M213,25 L228,25 C243,25 243,51 228,51 L213,51 M255,44 L255,74 M255,27.5 L255,28 M293,47 C285,39.5 270,43.5 270,59 C270,74.5 285,78.5 293,71 M308,24 L308,74 M332,44 L310,59.5 M317,55.5 L333,74" />
+          </g>
+          <use href="#en-uckpick" transform="translate(0 6.2)" fill="none" stroke="#000000" stroke-opacity="0.4" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+          <use href="#en-uckpick" transform="translate(0 4.4)" fill="none" stroke="#2B1707" stroke-width="14.6" stroke-linecap="round" stroke-linejoin="round" />
+          <use href="#en-uckpick" transform="translate(0 2.4)" fill="none" stroke="#5C3511" stroke-width="14.6" stroke-linecap="round" stroke-linejoin="round" />
+          <use href="#en-uckpick" fill="none" stroke="#241409" stroke-width="14.6" stroke-linecap="round" stroke-linejoin="round" />
+          <use href="#en-uckpick" fill="none" stroke="url(#letterGoldEn)" stroke-width="8.4" stroke-linecap="round" stroke-linejoin="round" />
+          <use href="#en-uckpick" transform="translate(0 -1.4)" fill="none" stroke="#FFFDF6" stroke-opacity="0.28" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+        </g>
+        <g class="accent-group">
+          <path d="M326,46 Q337,24 346,21.5" fill="none" stroke="url(#arcGoldEn)" stroke-width="2.3" stroke-linecap="round" />
+          <path d="M331,53 Q344,36 349,33" fill="none" stroke="url(#arcGoldEn)" stroke-width="1.7" stroke-linecap="round" />
+          <circle cx="357" cy="30" r="13.5" fill="#000000" fill-opacity="0.42" />
+          <circle cx="357" cy="27" r="13.5" fill="url(#ballGoldEn)" stroke="#FFF4CC" stroke-opacity="0.72" stroke-width="1.3" />
+          <ellipse cx="352.4" cy="22.2" rx="3.1" ry="1.7" transform="rotate(-31 352.4 22.2)" fill="#FFFFFF" fill-opacity="0.72" />
+          <path d="M340,6.5 Q341.7,11.3 346.5,13 Q341.7,14.7 340,19.5 Q338.3,14.7 333.5,13 Q338.3,11.3 340,6.5 Z" fill="#FFEAAD" />
+          <path d="M371,48.5 Q372.4,52.6 376.5,54 Q372.4,55.4 371,59.5 Q369.6,55.4 365.5,54 Q369.6,52.6 371,48.5 Z" fill="#FFEAAD" fill-opacity="0.9" />
+        </g>
+      </svg>
+    </div>
     <div class="balls-mixer">
       <div class="lotto-ball ball-1">7</div>
       <div class="lotto-ball ball-2">18</div>
@@ -621,6 +841,14 @@
 
   <script>
     (function () {
+      var titleWrap = document.querySelector('.loader-title');
+      var brandKoEl = document.getElementById('loader-brand-ko');
+      var brandEnEl = document.getElementById('loader-brand-en');
+      if (!/^ko/i.test(navigator.language || '')) {
+        if (titleWrap) titleWrap.setAttribute('aria-label', 'LuckPick');
+        if (brandKoEl) brandKoEl.style.display = 'none';
+        if (brandEnEl) brandEnEl.style.display = 'block';
+      }
       // 6개 로또 볼 랜덤 번호 생성 및 공식 색상 설정
       function getSplashBallColor(num) {
         if (num <= 10) return '#FBC400'; // 1~10: 노랑
@@ -680,20 +908,6 @@
   </script>
 
   <script>
-    // ── Screen Orientation Lock (Mobile Web) ──
-    function lockPortraitOrientation() {
-      if (screen && screen.orientation && typeof screen.orientation.lock === 'function') {
-        screen.orientation.lock('portrait-primary').catch(function () {
-          if (typeof screen.orientation.lock === 'function') {
-            screen.orientation.lock('portrait').catch(function () { });
-          }
-        });
-      }
-    }
-    window.addEventListener('load', lockPortraitOrientation);
-    window.addEventListener('touchstart', lockPortraitOrientation, { once: true });
-    window.addEventListener('click', lockPortraitOrientation, { once: true });
-
     // ── Service Worker Cleanup (기존 등록된 PWA Service Worker 및 캐시 완전 해제) ──
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then(function (registrations) {
@@ -824,7 +1038,7 @@
         <div class="paypal-modal-icon">☕</div>
         <div class="paypal-modal-title" id="paypal-title-text">개발자 후원하기 (PayPal)</div>
         <div class="paypal-modal-subtitle" id="paypal-sub-text">
-          동행복권 3D 물리 시뮬레이터가 유익하셨나요?<br>
+          복뽑기가 유익하셨나요?<br>
           따뜻한 커피 한 잔의 후원이 서버 유지와 지속적인 업데이트에 큰 힘이 됩니다!
         </div>
       </div>
@@ -929,12 +1143,12 @@
 
         if (lang === 'en') {
           if (titleEl) titleEl.innerText = 'Support Developer (PayPal)';
-          if (subEl) subEl.innerHTML = 'Enjoying the 3D Physics Lottery Simulator?<br>Buying the developer a coffee helps keep the servers running and supports continuous updates!';
+          if (subEl) subEl.innerHTML = 'Enjoying LuckPick?<br>Buying the developer a coffee helps keep the servers running and supports continuous updates!';
           if (footerEl) footerEl.innerText = 'Donation is securely processed via PayPal.';
           if (directLinkText) directLinkText.innerText = '☕ Donate via PayPal directly (New Tab)';
         } else {
           if (titleEl) titleEl.innerText = '개발자 후원하기 (PayPal)';
-          if (subEl) subEl.innerHTML = '동행복권 3D 물리 시뮬레이터가 유익하셨나요?<br>따뜻한 커피 한 잔의 후원이 서버 유지와 지속적인 업데이트에 큰 힘이 됩니다!';
+          if (subEl) subEl.innerHTML = '복뽑기가 유익하셨나요?<br>따뜻한 커피 한 잔의 후원이 서버 유지와 지속적인 업데이트에 큰 힘이 됩니다!';
           if (footerEl) footerEl.innerText = 'PayPal의 안전한 보안 결제 시스템을 통해 기부됩니다.';
           if (directLinkText) directLinkText.innerText = '☕ PayPal로 직접 후원하기 (새 창)';
         }
