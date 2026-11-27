@@ -100,7 +100,7 @@ class CompiledApp {
       AK: (x0,x1) => { x0.spellcheck = x1 },
       AL: (x0,x1) => x0.getUserMedia(x1),
       AM: (x0,x1) => { x0.defer = x1 },
-      AN: x0 => x0.loader,
+      AN: x0 => x0.appId,
       B: s => printToConsole(s),
       BB: () => globalThis.document,
       BC: Function.prototype.call.bind(DataView.prototype.setUint16),
@@ -114,7 +114,7 @@ class CompiledApp {
       BK: (x0,x1) => { x0.disabled = x1 },
       BL: x0 => x0.deviceId,
       BM: (x0,x1) => { x0.async = x1 },
-      BN: () => globalThis._flutter,
+      BN: x0 => x0.messagingSenderId,
       C: Function.prototype.call.bind(Number.prototype.toString),
       CB: (wasmFunction,f) => finalizeWrapper(f, function(x0) { return wasmFunction(f,arguments.length,x0) }),
       CC: Function.prototype.call.bind(DataView.prototype.setUint8),
@@ -128,6 +128,7 @@ class CompiledApp {
       CK: (x0,x1,x2,x3,x4,x5,x6,x7,x8,x9) => x0.drawImage(x1,x2,x3,x4,x5,x6,x7,x8,x9),
       CL: x0 => x0.getCapabilities(),
       CM: (x0,x1) => { x0.id = x1 },
+      CN: x0 => x0.storageBucket,
       D: Function.prototype.call.bind(BigInt.prototype.toString),
       DB: (x0,x1) => x0.focus(x1),
       DC: Function.prototype.call.bind(DataView.prototype.setInt8),
@@ -145,6 +146,7 @@ class CompiledApp {
       DK: (x0,x1) => x0.getContext(x1),
       DL: () => ({}),
       DM: x0 => x0.videoHeight,
+      DN: x0 => x0.databaseURL,
       E: (exn) => {
         let stackString = exn.toString();
         let frames = stackString.split('\n');
@@ -166,6 +168,7 @@ class CompiledApp {
       EK: (x0,x1) => { x0.height = x1 },
       EL: (x0,x1) => x0.applyConstraints(x1),
       EM: x0 => x0.videoWidth,
+      EN: x0 => x0.authDomain,
       F: () => new Error().stack,
       FB: (o, p, v) => o[p] = v,
       FC: o => {
@@ -187,6 +190,7 @@ class CompiledApp {
       FK: (x0,x1) => { x0.width = x1 },
       FL: (x0,x1) => { x0.whiteBalanceMode = x1 },
       FM: x0 => x0.stream,
+      FN: x0 => x0.projectId,
       G: s => JSON.stringify(s),
       GB: () => [],
       GC: (o, start, length) => new Float64Array(o.buffer, o.byteOffset + start, length),
@@ -206,6 +210,7 @@ class CompiledApp {
       GK: x0 => x0.canvasKitMaximumSurfaces,
       GL: x0 => x0.whiteBalanceMode,
       GM: x0 => x0.play(),
+      GN: x0 => x0.apiKey,
       H: Function.prototype.call.bind(Number.prototype.toString),
       HB: (a, i) => a.push(i),
       HC: (o, start, length) => new Float32Array(o.buffer, o.byteOffset + start, length),
@@ -219,6 +224,7 @@ class CompiledApp {
       HK: (a, i) => a.splice(i, 1)[0],
       HL: (x0,x1) => { x0.exposureMode = x1 },
       HM: x0 => x0.paused,
+      HN: x0 => x0.options,
       I: Function.prototype.call.bind(String.prototype.indexOf),
       IB: x0 => new Int8Array(x0),
       IC: (o, start, length) => new Uint32Array(o.buffer, o.byteOffset + start, length),
@@ -232,6 +238,7 @@ class CompiledApp {
       IK: x0 => x0.hostElement,
       IL: x0 => x0.exposureMode,
       IM: (x0,x1,x2,x3) => x0.drawImage(x1,x2,x3),
+      IN: x0 => x0.name,
       J: (s, p, i) => s.lastIndexOf(p, i),
       JB: (jsArray, jsArrayOffset, wasmArray, wasmArrayOffset, length) => {
         const getValue = dartInstance.exports.$wasmI8ArrayGet;
@@ -250,6 +257,7 @@ class CompiledApp {
       JK: x0 => x0.location,
       JL: (x0,x1) => { x0.focusMode = x1 },
       JM: (x0,x1,x2,x3,x4) => x0.getImageData(x1,x2,x3,x4),
+      JN: () => globalThis.firebase_core.getApps(),
       K: o => o,
       KB: x0 => new Uint8Array(x0),
       KC: (o, start, length) => new Uint16Array(o.buffer, o.byteOffset + start, length),
@@ -271,6 +279,7 @@ class CompiledApp {
       KK: (x0,x1) => x0.getModifierState(x1),
       KL: x0 => x0.focusMode,
       KM: (x0,x1,x2) => x0.readBarcodes(x1,x2),
+      KN: x0 => x0.name,
       L: o => {
         if (o === undefined || o === null) return 0;
         if (typeof o === 'number') return 1;
@@ -288,6 +297,7 @@ class CompiledApp {
       LK: x0 => x0.metaKey,
       LL: x0 => x0.enumerateDevices(),
       LM: x0 => x0.text,
+      LN: (x0,x1,x2,x3,x4,x5,x6,x7) => ({apiKey: x0,authDomain: x1,databaseURL: x2,projectId: x3,storageBucket: x4,messagingSenderId: x5,measurementId: x6,appId: x7}),
       M: x0 => x0.index,
       MB: x0 => new Int16Array(x0),
       MC: (o, start, length) => new Uint8ClampedArray(o.buffer, o.byteOffset + start, length),
@@ -301,6 +311,7 @@ class CompiledApp {
       MK: x0 => x0.altKey,
       ML: x0 => x0.deviceId,
       MM: x0 => x0.format,
+      MN: (x0,x1) => globalThis.firebase_core.initializeApp(x0,x1),
       N: o => String(o),
       NB: x0 => new Uint16Array(x0),
       NC: (o, start, length) => new Uint8Array(o.buffer, o.byteOffset + start, length),
@@ -314,6 +325,7 @@ class CompiledApp {
       NK: x0 => x0.ctrlKey,
       NL: x0 => x0.kind,
       NM: x0 => x0.bytes,
+      NN: x0 => globalThis.firebase_core.initializeApp(x0),
       O: o => o === undefined,
       OB: (jsArray, jsArrayOffset, wasmArray, wasmArrayOffset, length) => {
         const getValue = dartInstance.exports.$wasmI16ArrayGet;
@@ -332,6 +344,7 @@ class CompiledApp {
       OK: x0 => x0.isComposing,
       OL: x0 => x0.mediaDevices,
       OM: x0 => x0.y,
+      ON: () => globalThis.firebase_core.SDK_VERSION,
       P: (x0,x1) => x0.exec(x1),
       PB: x0 => new Int32Array(x0),
       PC: (x0,x1) => x0.querySelector(x1),
@@ -373,6 +386,7 @@ class CompiledApp {
       PK: x0 => x0.code,
       PL: x0 => x0.facingMode,
       PM: x0 => x0.x,
+      PN: (x0,x1) => x0.debug(x1),
       Q: (x0,x1) => { x0.lastIndex = x1 },
       QB: (jsArray, jsArrayOffset, wasmArray, wasmArrayOffset, length) => {
         const getValue = dartInstance.exports.$wasmI32ArrayGet;
@@ -391,6 +405,7 @@ class CompiledApp {
       QK: x0 => x0.repeat,
       QL: x0 => x0.mediaDevices,
       QM: x0 => x0.bottomLeft,
+      QN: (wasmFunction,f) => finalizeWrapper(f, function(x0,x1) { return wasmFunction(f,arguments.length,x0,x1) }),
       R: o => o,
       RB: x0 => new Uint32Array(x0),
       RC: x0 => x0.length,
@@ -404,6 +419,7 @@ class CompiledApp {
       RK: (wasmFunction,f) => finalizeWrapper(f, function(x0) { return wasmFunction(f,arguments.length,x0) }),
       RL: () => globalThis.BarcodeDetector.getSupportedFormats(),
       RM: x0 => x0.bottomRight,
+      RN: (wasmFunction,f) => finalizeWrapper(f, function(x0) { return wasmFunction(f,arguments.length,x0) }),
       S: (s, m) => {
         try {
           return new RegExp(s, m);
@@ -423,6 +439,7 @@ class CompiledApp {
       SK: x0 => x0.message,
       SL: (x0,x1) => x0.call(x1),
       SM: x0 => x0.topRight,
+      SN: (x0,x1) => ({createScript: x0,createScriptURL: x1}),
       T: o => o instanceof RegExp,
       TB: (jsArray, jsArrayOffset, wasmArray, wasmArrayOffset, length) => {
         const getValue = dartInstance.exports.$wasmF32ArrayGet;
@@ -441,6 +458,7 @@ class CompiledApp {
       TK: (x0,x1,x2,x3) => x0.open(x1,x2,x3),
       TL: x0 => x0.reset,
       TM: x0 => x0.topLeft,
+      TN: (x0,x1,x2) => x0.createPolicy(x1,x2),
       U: (string, times) => string.repeat(times),
       UB: x0 => new Float64Array(x0),
       UC: x0 => x0.remove(),
@@ -454,6 +472,7 @@ class CompiledApp {
       UK: (o, a) => o + a,
       UL: x0 => x0.stopContinuousDecode,
       UM: x0 => x0.position,
+      UN: (x0,x1) => x0.createScriptURL(x1),
       V: o => o,
       VB: (jsArray, jsArrayOffset, wasmArray, wasmArrayOffset, length) => {
         const getValue = dartInstance.exports.$wasmF64ArrayGet;
@@ -472,6 +491,7 @@ class CompiledApp {
       VK: x0 => x0.children,
       VL: (wasmFunction,f) => finalizeWrapper(f, function(x0,x1) { return wasmFunction(f,arguments.length,x0,x1) }),
       VM: x0 => x0.isValid,
+      VN: (x0,x1,x2) => x0.createScript(x1,x2),
       W: o => {
         if (o === undefined || o === null) return 0;
         if (typeof o === 'boolean') return 1;
@@ -489,6 +509,7 @@ class CompiledApp {
       WK: (x0,x1,x2) => ({files: x0,title: x1,text: x2}),
       WL: (x0,x1,x2,x3) => x0.call(x1,x2,x3),
       WM: (x0,x1,x2,x3) => ({formats: x0,tryHarder: x1,tryRotate: x2,tryInvert: x3}),
+      WN: (wasmFunction,f) => finalizeWrapper(f, function(x0) { return wasmFunction(f,arguments.length,x0) }),
       X: x0 => x0.dotAll,
       XB: (x0,x1,x2) => new Uint8Array(x0,x1,x2),
       XC: (x0,x1,x2,x3) => x0.setProperty(x1,x2,x3),
@@ -502,6 +523,7 @@ class CompiledApp {
       XK: (x0,x1) => ({files: x0,text: x1}),
       XL: x0 => x0.text,
       XM: (x0,x1,x2) => ({tryHarder: x0,tryRotate: x1,tryInvert: x2}),
+      XN: (o, p) => delete o[p],
       Y: x0 => x0.unicode,
       YB: (x0,x1,x2) => new DataView(x0,x1,x2),
       YC: x0 => x0.style,
@@ -515,6 +537,7 @@ class CompiledApp {
       YK: x0 => ({files: x0}),
       YL: x0 => x0.barcodeFormat,
       YM: () => globalThis.ZXingWASM,
+      YN: (o, p, v) => o[p] = v,
       Z: x0 => x0.ignoreCase,
       ZB: (o, p) => o[p],
       ZC: x0 => x0.debugShowSemanticsNodes,
@@ -528,6 +551,7 @@ class CompiledApp {
       ZK: (x0,x1) => ({title: x0,text: x1}),
       ZL: x0 => x0.rawBytes,
       ZM: (x0,x1) => { x0.height = x1 },
+      ZN: (x0,x1) => { x0.text = x1 },
       a: x0 => x0.multiline,
       aB: (o) => new DataView(o.buffer, o.byteOffset, o.byteLength),
       aC: (x0,x1) => x0.warn(x1),
@@ -546,6 +570,7 @@ class CompiledApp {
       aK: x0 => ({text: x0}),
       aL: x0 => x0.y,
       aM: (x0,x1) => { x0.width = x1 },
+      aN: (x0,x1) => { x0.text = x1 },
       b: (exn) => {
         if (exn instanceof Error) {
           return exn.stack;
@@ -570,6 +595,7 @@ class CompiledApp {
       bK: x0 => x0.nextSibling,
       bL: x0 => x0.x,
       bM: x0 => x0.height,
+      bN: x0 => x0.trustedTypes,
       c: (c) =>
       queueMicrotask(() => dartInstance.exports.$invokeCallback(c)),
       cB: o => o.byteOffset,
@@ -589,6 +615,7 @@ class CompiledApp {
       cK: (x0,x1) => x0.debug(x1),
       cL: x0 => x0.resultPoints,
       cM: x0 => x0.width,
+      cN: () => globalThis.console,
       d: (x0,x1) => x0.didCreateEngineInitializer(x1),
       dB: o => o.buffer,
       dC: (o, c) => o instanceof c,
@@ -602,6 +629,7 @@ class CompiledApp {
       dK: x0 => x0.getTracks(),
       dL: x0 => x0.message,
       dM: (x0,x1) => { x0.srcObject = x1 },
+      dN: x0 => x0.trustedTypes,
       e: (wasmFunction,f) => finalizeWrapper(f, function(x0) { return wasmFunction(f,arguments.length,x0) }),
       eB: Function.prototype.call.bind(DataView.prototype.getUint8),
       eC: (x0,x1) => x0[x1],
@@ -620,6 +648,7 @@ class CompiledApp {
       eK: x0 => x0.stop(),
       eL: x0 => x0.videoElement,
       eM: x0 => ({willReadFrequently: x0}),
+      eN: (o, t) => typeof o === t,
       f: (wasmFunction,f) => finalizeWrapper(f, function() { return wasmFunction(f,arguments.length) }),
       fB: (b, o) => new DataView(b, o),
       fC: x0 => x0.length,
@@ -633,6 +662,7 @@ class CompiledApp {
       fK: (x0,x1) => { x0.transform = x1 },
       fL: x0 => x0.decodeContinuously,
       fM: (x0,x1,x2) => x0.getContext(x1,x2),
+      fN: (o) => Array.isArray(o) || o instanceof Array,
       g: (x0,x1) => ({initializeEngine: x0,autoStart: x1}),
       gB: (b, o, l) => new DataView(b, o, l),
       gC: (string, token) => string.split(token),
@@ -646,6 +676,7 @@ class CompiledApp {
       gK: x0 => x0.getVideoTracks(),
       gL: (x0,x1) => new ZXing.BrowserMultiFormatReader(x0,x1),
       gM: () => new BarcodeDetector(),
+      gN: x0 => x0.extraAssets,
       h: (wasmFunction,f) => finalizeWrapper(f, function(x0,x1) { return wasmFunction(f,arguments.length,x0,x1) }),
       hB: Function.prototype.call.bind(DataView.prototype.getFloat64),
       hC: o => o instanceof Array,
@@ -659,6 +690,7 @@ class CompiledApp {
       hK: x0 => x0.getSettings(),
       hL: (x0,x1) => ({width: x0,height: x1}),
       hM: x0 => ({formats: x0}),
+      hN: x0 => x0.fontManifest,
       i: x0 => new Promise(x0),
       iB: o => {
         if (o === null || o === undefined) return 0;
@@ -676,6 +708,7 @@ class CompiledApp {
       iK: x0 => x0.facingMode,
       iL: (x0,x1,x2) => ({width: x0,height: x1,facingMode: x2}),
       iM: x0 => new BarcodeDetector(x0),
+      iN: x0 => x0.assetManifest,
       j: (x0,x1,x2) => x0.call(x1,x2),
       jB: Function.prototype.call.bind(DataView.prototype.setFloat64),
       jC: a => a.length,
@@ -694,6 +727,7 @@ class CompiledApp {
       jK: (wasmFunction,f) => finalizeWrapper(f, function(x0) { return wasmFunction(f,arguments.length,x0) }),
       jL: x0 => x0.facingMode,
       jM: (x0,x1) => x0.detect(x1),
+      jN: x0 => x0.buildConfig,
       k: (constructor, args) => {
         const factoryFunction = constructor.bind.apply(
             constructor, [null, ...args]);
@@ -711,6 +745,7 @@ class CompiledApp {
       kK: (wasmFunction,f) => finalizeWrapper(f, function(x0) { return wasmFunction(f,arguments.length,x0) }),
       kL: x0 => x0.height,
       kM: x0 => x0.rawValue,
+      kN: x0 => x0.length,
       l: x0 => new Array(x0),
       lB: Function.prototype.call.bind(DataView.prototype.setFloat32),
       lC: x0 => x0.userAgent,
@@ -724,6 +759,7 @@ class CompiledApp {
       lK: (x0,x1) => x0.append(x1),
       lL: x0 => x0.width,
       lM: x0 => x0.format,
+      lN: x0 => x0.getReader(),
       m: o => [o],
       mB: Function.prototype.call.bind(DataView.prototype.getFloat32),
       mC: x0 => x0.navigator,
@@ -737,6 +773,7 @@ class CompiledApp {
       mK: (x0,x1) => { x0.onpause = x1 },
       mL: x0 => x0.attachStreamToVideo,
       mM: x0 => x0.y,
+      mN: x0 => x0.value,
       n: (o0, o1) => [o0, o1],
       nB: o => {
         if (o === null || o === undefined) return 0;
@@ -758,6 +795,7 @@ class CompiledApp {
       nK: (x0,x1) => { x0.onplay = x1 },
       nL: () => new Map(),
       nM: x0 => x0.x,
+      nN: x0 => x0.done,
       o: (o0, o1, o2) => [o0, o1, o2],
       oB: Function.prototype.call.bind(DataView.prototype.getUint32),
       oC: Object.is,
@@ -771,6 +809,7 @@ class CompiledApp {
       oK: (x0,x1) => { x0.controls = x1 },
       oL: (x0,x1,x2) => x0.set(x1,x2),
       oM: x0 => x0.cornerPoints,
+      oN: x0 => x0.read(),
       p: (o0, o1, o2, o3) => [o0, o1, o2, o3],
       pB: o => {
         if (o === null || o === undefined) return 0;
@@ -787,7 +826,8 @@ class CompiledApp {
       pJ: x0 => x0.groups,
       pK: (x0,x1) => { x0.pointerEvents = x1 },
       pL: (x0,x1) => x0.querySelector(x1),
-      pM: x0 => x0.extraAssets,
+      pM: x0 => x0.message,
+      pN: x0 => x0.body,
       q: (x0,x1,x2) => { x0[x1] = x2 },
       qB: Function.prototype.call.bind(DataView.prototype.getInt32),
       qC: (x0,x1) => x0.createTextNode(x1),
@@ -800,7 +840,8 @@ class CompiledApp {
       qJ: (x0,x1,x2) => x0.insertBefore(x1,x2),
       qK: (x0,x1) => { x0.transformOrigin = x1 },
       qL: (wasmFunction,f) => finalizeWrapper(f, function(x0) { return wasmFunction(f,arguments.length,x0) }),
-      qM: x0 => x0.fontManifest,
+      qM: x0 => x0.code,
+      qN: x0 => x0.assetBase,
       r: (o, p) => o[p],
       rB: o => {
         if (o === null || o === undefined) return 0;
@@ -817,7 +858,8 @@ class CompiledApp {
       rJ: x0 => x0.id,
       rK: (x0,x1) => { x0.objectFit = x1 },
       rL: (wasmFunction,f) => finalizeWrapper(f, function(x0) { return wasmFunction(f,arguments.length,x0) }),
-      rM: x0 => x0.assetManifest,
+      rM: (x0,x1,x2) => globalThis.firebase_analytics.setUserProperties(x0,x1,x2),
+      rN: x0 => x0.loader,
       s: () => globalThis,
       sB: o => o instanceof Uint16Array,
       sC: (x0,x1) => { x0.nonce = x1 },
@@ -830,7 +872,8 @@ class CompiledApp {
       sJ: x0 => x0.offsetHeight,
       sK: (x0,x1) => { x0.width = x1 },
       sL: x0 => x0.head,
-      sM: x0 => x0.buildConfig,
+      sM: (x0,x1) => globalThis.firebase_analytics.initializeAnalytics(x0,x1),
+      sN: () => globalThis._flutter,
       t: (wasmFunction,f) => finalizeWrapper(f, function(x0) { return wasmFunction(f,arguments.length,x0) }),
       tB: Function.prototype.call.bind(DataView.prototype.getUint16),
       tC: x0 => x0.nonce,
@@ -843,7 +886,7 @@ class CompiledApp {
       tJ: x0 => x0.offsetWidth,
       tK: (x0,x1) => { x0.height = x1 },
       tL: (x0,x1) => { x0.onerror = x1 },
-      tM: x0 => x0.length,
+      tM: x0 => globalThis.firebase_core.getApp(x0),
       u: (wasmFunction,f) => finalizeWrapper(f, function(x0) { return wasmFunction(f,arguments.length,x0) }),
       uB: o => o instanceof Int16Array,
       uC: () => globalThis.window.flutterConfiguration,
@@ -856,7 +899,7 @@ class CompiledApp {
       uJ: x0 => x0.stopPropagation(),
       uK: x0 => x0.getSupportedConstraints(),
       uL: (x0,x1) => x0.removeChild(x1),
-      uM: x0 => x0.getReader(),
+      uM: () => globalThis.firebase_core.getApp(),
       v: (x0,x1) => ({addView: x0,removeView: x1}),
       vB: Function.prototype.call.bind(DataView.prototype.getInt16),
       vC: (x0,x1) => x0.attachShadow(x1),
@@ -874,7 +917,7 @@ class CompiledApp {
       vJ: x0 => x0.disabled,
       vK: x0 => ({ideal: x0}),
       vL: (x0,x1) => { x0.onload = x1 },
-      vM: x0 => x0.value,
+      vM: (x0,x1,x2,x3) => globalThis.firebase_analytics.logEvent(x0,x1,x2,x3),
       w: (l, r) => l === r,
       wB: o => o instanceof Uint8ClampedArray,
       wC: (x0,x1) => x0.createElement(x1),
@@ -895,7 +938,7 @@ class CompiledApp {
       wJ: (x0,x1) => { x0.min = x1 },
       wK: (x0,x1,x2) => ({width: x0,height: x1,deviceId: x2}),
       wL: (x0,x1) => { x0.src = x1 },
-      wM: x0 => x0.done,
+      wM: (x0,x1) => globalThis.firebase_analytics.setAnalyticsCollectionEnabled(x0,x1),
       x: x0 => x0.random(),
       xB: o => {
         if (o === null || o === undefined) return 0;
@@ -913,7 +956,7 @@ class CompiledApp {
       xJ: (x0,x1) => { x0.max = x1 },
       xK: x0 => ({video: x0}),
       xL: (x0,x1) => { x0.crossOrigin = x1 },
-      xM: x0 => x0.read(),
+      xM: (x0,x1,x2) => globalThis.firebase_core.registerVersion(x0,x1,x2),
       y: () => globalThis.Math,
       yB: Function.prototype.call.bind(DataView.prototype.setInt32),
       yC: x0 => x0.visualViewport,
@@ -926,7 +969,7 @@ class CompiledApp {
       yJ: (x0,x1) => { x0.disabled = x1 },
       yK: (x0,x1) => ({width: x0,height: x1}),
       yL: (x0,x1) => { x0.lang = x1 },
-      yM: x0 => x0.body,
+      yM: x0 => x0.sessionStorage,
       z: (x0,x1,x2,x3) => x0.addEventListener(x1,x2,x3),
       zB: Function.prototype.call.bind(DataView.prototype.setUint32),
       zC: x0 => x0.devicePixelRatio,
@@ -939,7 +982,7 @@ class CompiledApp {
       zJ: (x0,x1) => { x0.scrollLeft = x1 },
       zK: (x0,x1,x2) => ({width: x0,height: x1,facingMode: x2}),
       zL: (x0,x1) => { x0.type = x1 },
-      zM: x0 => x0.assetBase,
+      zM: x0 => x0.measurementId,
 
     };
 
